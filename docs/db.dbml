@@ -1,0 +1,65 @@
+// Copy this text, paste to https://dbdiagram.io/d
+// Or, https://databasediagram.com/app
+
+Table Address {
+    id INTEGER
+    customer_id INTEGER
+    address_line1 VARCHAR
+    address_line2 VARCHAR
+    city VARCHAR
+    state VARCHAR
+    postal_code VARCHAR
+    country VARCHAR
+    }
+
+Table Customer {
+    id INTEGER
+    first_name VARCHAR
+    last_name VARCHAR
+    email VARCHAR
+    phone_number VARCHAR
+    }
+
+Table CustomerInsight {
+    id INTEGER
+    customer_id INTEGER
+    average_order_total FLOAT
+    favorite_store VARCHAR
+    last_purchase_date DATETIME
+    most_purchased_category VARCHAR
+    total_orders INTEGER
+    lifetime_value FLOAT
+    order_frequency FLOAT
+    }
+
+Table LoyaltyProgram {
+    id INTEGER
+    customer_id INTEGER
+    start_date DATETIME
+    points_earned INTEGER
+    }
+
+Table Order {
+    id INTEGER
+    customer_id INTEGER
+    order_date DATETIME
+    total_amount FLOAT
+    store VARCHAR
+    }
+
+Table OrderItem {
+    id INTEGER
+    order_id INTEGER
+    product_name VARCHAR
+    quantity INTEGER
+    price_per_unit FLOAT
+    }
+
+
+
+// Relationships
+    Ref: Address.(customer_id) < Customer.(id)
+    Ref: CustomerInsight.(customer_id) < Customer.(id)
+    Ref: LoyaltyProgram.(customer_id) < Customer.(id)
+    Ref: Order.(customer_id) < Customer.(id)
+    Ref: OrderItem.(order_id) < Order.(id)

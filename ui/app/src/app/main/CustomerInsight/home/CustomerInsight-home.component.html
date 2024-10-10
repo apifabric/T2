@@ -1,0 +1,54 @@
+<o-form-layout-manager attr="CustomerInsight" mode="tab" title="CUSTOMERINSIGHT">
+    <div fxFill fxLayout="column" fxLayoutAlign="start">
+        <o-table 
+            attr="CustomerInsightTable" 
+            service="CustomerInsight" 
+            entity="CustomerInsight" 
+            title="CUSTOMERINSIGHT"
+            keys="id"
+            columns="id;customer_id;average_order_total;favorite_store;last_purchase_date;most_purchased_category;total_orders;lifetime_value;order_frequency" 
+            header-actions="R;D"
+            visible-columns="id;customer_id;average_order_total;favorite_store;last_purchase_date;most_purchased_category;total_orders;lifetime_value;order_frequency"  
+            sort-columns="id" 
+            query-rows="20" 
+            quick-filter="yes"
+            row-height="medium" 
+            select-all-checkbox="true" 
+            pageable="yes"  
+            auto-adjust="true" 
+            virtual-scroll="yes" 
+            edition-mode="dblclick"
+            horizontal-scroll="yes"
+            show-title="yes"
+            export-button="yes">
+            
+            <o-table-column #id attr="id" title=" id*" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+            
+            <o-table-column attr="customer_id" title="customer_id">
+    <o-table-cell-renderer-service attr="customer_id" 
+        service="Customer" entity="CustomerType" columns="id;first_name"
+        parent-keys="id:customer_id"
+        value-column="first_name" keys="customer_id"
+        visible-columns="first_name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+            
+            <o-table-column #average_order_total attr="average_order_total" title="average_order_total" type="currency" editable="no" required="no" currency-symbol="$" currency-symbol-position="left" thousand-separator=","decimal-separator="."></o-table-column>
+            
+            <o-table-column #favorite_store attr="favorite_store" title="favorite_store" editable="no" required="no" content-align="left"></o-table-column>
+            
+            <o-date-input #last_purchase_date attr="last_purchase_date" type="timestamp" label="last_purchase_date" editable="no" required="no" format="LL" fxFlex="20%" class="form-field"></o-date-input>
+            
+            <o-table-column #most_purchased_category attr="most_purchased_category" title="most_purchased_category" editable="no" required="no" content-align="left"></o-table-column>
+            
+            <o-table-column #total_orders attr="total_orders" title="total_orders" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+            
+            <o-table-column #lifetime_value attr="lifetime_value" title="lifetime_value" type="real" min-decimal-digits="2" max-decimal-digits="4" min="0" max="1000000.0000" content-align="center"></o-table-column>
+            
+            <o-table-column #order_frequency attr="order_frequency" title="order_frequency" type="real" min-decimal-digits="2" max-decimal-digits="4" min="0" max="1000000.0000" content-align="center"></o-table-column>
+            
+            <o-table-context-menu></o-table-context-menu>
+            <o-table-paginator page-size-options="24;48;96"></o-table-paginator>
+        </o-table>
+    </div>
+</o-form-layout-manager>

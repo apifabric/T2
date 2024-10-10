@@ -1,0 +1,205 @@
+about:
+  date: October 10, 2024 00:27:19
+  recent_changes: works with modified safrs-react-admin
+  version: 0.0.0
+api_root: '{http_type}://{swagger_host}:{port}/{api}'
+authentication: '{system-default}'
+info:
+  number_relationships: 5
+  number_tables: 6
+info_toggle_checked: true
+resources:
+  Address:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: customer_id
+      required: true
+    - name: address_line1
+      required: true
+    - name: address_line2
+    - name: city
+      required: true
+    - name: state
+      required: true
+    - name: postal_code
+      required: true
+    - name: country
+      required: true
+    description: Table to store customer shipping and contact addresses.
+    info_list: Table to store customer shipping and contact addresses.
+    tab_groups:
+    - direction: toone
+      fks:
+      - customer_id
+      name: customer
+      resource: Customer
+    type: Address
+    user_key: id
+  Customer:
+    attributes:
+    - label: ' first_name*'
+      name: first_name
+      required: true
+      search: true
+      sort: true
+    - name: last_name
+      required: true
+    - name: email
+      required: true
+    - name: phone_number
+    - name: id
+    description: Table to store basic customer demographic and contact information.
+    info_list: Table to store basic customer demographic and contact information.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - customer_id
+      name: AddressList
+      resource: Address
+    - direction: tomany
+      fks:
+      - customer_id
+      name: CustomerInsightList
+      resource: CustomerInsight
+    - direction: tomany
+      fks:
+      - customer_id
+      name: LoyaltyProgramList
+      resource: LoyaltyProgram
+    - direction: tomany
+      fks:
+      - customer_id
+      name: OrderList
+      resource: Order
+    type: Customer
+    user_key: first_name
+  CustomerInsight:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: customer_id
+      required: true
+    - name: average_order_total
+    - name: favorite_store
+    - name: last_purchase_date
+    - name: most_purchased_category
+    - name: total_orders
+    - name: lifetime_value
+    - name: order_frequency
+    description: Table to store aggregated insights about a customer.
+    info_list: Table to store aggregated insights about a customer.
+    tab_groups:
+    - direction: toone
+      fks:
+      - customer_id
+      name: customer
+      resource: Customer
+    type: CustomerInsight
+    user_key: id
+  LoyaltyProgram:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: customer_id
+      required: true
+    - name: start_date
+    - name: points_earned
+      required: true
+    description: Table to store customer's loyalty program information.
+    info_list: Table to store customer's loyalty program information.
+    tab_groups:
+    - direction: toone
+      fks:
+      - customer_id
+      name: customer
+      resource: Customer
+    type: LoyaltyProgram
+    user_key: id
+  Order:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: customer_id
+      required: true
+    - name: order_date
+    - name: total_amount
+      required: true
+    - name: store
+    description: Table to store order history with insights about the customer.
+    info_list: Table to store order history with insights about the customer.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - order_id
+      name: OrderItemList
+      resource: OrderItem
+    - direction: toone
+      fks:
+      - customer_id
+      name: customer
+      resource: Customer
+    type: Order
+    user_key: id
+  OrderItem:
+    attributes:
+    - label: ' product_name*'
+      name: product_name
+      required: true
+      search: true
+      sort: true
+    - name: order_id
+      required: true
+    - name: quantity
+      required: true
+    - name: price_per_unit
+      required: true
+    - name: id
+    description: Table to store items for each order.
+    info_list: Table to store items for each order.
+    tab_groups:
+    - direction: toone
+      fks:
+      - order_id
+      name: order
+      resource: Order
+    type: OrderItem
+    user_key: product_name
+settings:
+  HomeJS: /admin-app/home.js
+  max_list_columns: 8
+  style_guide:
+    applicationLocales:
+    - en
+    - es
+    currency_symbol: $
+    currency_symbol_position: left
+    date_format: LL
+    decimal_max: '1000000000'
+    decimal_min: '0'
+    decimal_separator: .
+    detail_mode: tab
+    edit_on_mode: dblclick
+    include_translation: 'false'
+    keycloak_client_id: alsclient
+    keycloak_realm: kcals
+    keycloak_url: http://localhost:8080
+    locale: en
+    max_decimal_digits: '4'
+    min_decimal_digits: '2'
+    new_mode: dialog
+    pick_style: list
+    row_height: small,
+    serviceType: OntimizeEE
+    startSessionPath: /auth/login
+    style: light
+    thousand_separator: ','
+    use_keycloak: 'false'
